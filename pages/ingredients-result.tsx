@@ -5,22 +5,18 @@ import { useRouter } from "next/router";
 import { ingredientsListAtom } from "../components/IngredientsForm";
 import { Ingredient, Recipe } from "../types/types";
 import IngredientsRecipeButton from "../components/IngredientsRecipeButton";
+import { fetchJson } from "../lib/api";
 
 const INGREDIENTS_QUERY_KEY = "ingredient_recipes";
 
 const fetchRecipesByIngredients = async (ingredients: string[]) => {
 	try {
-		const response = await fetch(
-			`/api/recipesByIngredients?ingredients=${ingredients.join(",")}`
+		const recipes = await fetchJson(
+			`/api/recipesByIngredients?ingredients=${ingredients.join(",")}`, {}
 		);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
-		const recipes = await response.json();
 		return recipes;
 	} catch (error) {
-		console.error(error);
-		return undefined;
+		throw error;
 	}
 };
 

@@ -3,20 +3,17 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { User } from "../../types/types";
 import { useQuery } from "@tanstack/react-query";
+import { fetchJson } from "../../lib/api";
+import SavedRecipe from "../../components/SavedRecipe";
 
-const USER_QUERY_KEY = "user";
+export const USER_QUERY_KEY = "user";
 
 const fetchUser = async (id: string) => {
 	try {
-		const response = await fetch(`/api/user?id=${id}`);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
-		const user = await response.json();
+		const user = await fetchJson(`/api/user?id=${id}`, {});
 		return user;
 	} catch (error) {
-		console.error(error);
-		return undefined;
+		throw error;
 	}
 };
 
@@ -41,14 +38,6 @@ const UserPage: React.FC = () => {
 		);
 	}
 
-	if (isError) {
-		return (
-			<div className="flex h-52 items-end justify-center mx-3">
-				<div className="font-bold text-2xl">Error: {error.message}</div>
-			</div>
-		);
-	}
-
 	if (status === "unauthenticated" || !session || session!.id !== id) {
 		return (
 			<div className="flex h-52 items-end justify-center mx-3">
@@ -57,7 +46,21 @@ const UserPage: React.FC = () => {
 		);
 	}
 
-	const arr: number[] = [1, 2, 3, 4, 5];
+	if (isLoading) {
+		return (
+			<div className="flex h-52 items-end justify-center mx-3">
+				<div className="font-bold text-2xl">Loading...</div>
+			</div>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className="flex h-52 items-end justify-center mx-3">
+				<div className="font-bold text-2xl">Error: {error.message}</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
@@ -91,10 +94,8 @@ const UserPage: React.FC = () => {
 							Saved Recipes
 						</div>
 						<div className="bg-white min-w-full h-72 rounded-lg mt-3 overflow-scroll">
-							{arr.map((item, index) => (
-								<div key={index} className="border h-24 bg-red">
-									{item}
-								</div>
+							{data!.savedRecipes!.map((recipe) => (
+								<SavedRecipe key={recipe.id} {...recipe} />
 							))}
 						</div>
 					</div>

@@ -9,29 +9,19 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	switch (req.method) {
-		case "POST":
+		case "DELETE":
 			const { id: recipeId, title, image } = req.body as Recipe;
 			const { id } = req.query;
 			const session = await unstable_getServerSession(req, res, options);
 			if (session && session.id === id) {
 				try {
-					await prisma.recipe.upsert({
+					await prisma.recipe.update({
 						where: {
 							id: recipeId.toString(),
 						},
-						update: {
+						data: {
 							savedBy: {
-								connect: {
-									id: id as string,
-								},
-							},
-						},
-						create: {
-							id: recipeId.toString(),
-							title: title,
-							image: image,
-							savedBy: {
-								connect: {
+								disconnect: {
 									id: id as string,
 								},
 							},
@@ -44,7 +34,7 @@ export default async function handler(
 						},
 						data: {
 							savedRecipes: {
-								connect: {
+								disconnect: {
 									id: recipeId.toString(),
 								},
 							},

@@ -6,22 +6,18 @@ import { QueryAtom } from "../components/QueryForm";
 import { RecipeQuery } from "../components/QueryForm";
 import { Recipe } from "../types/types";
 import QueryRecipeButton from "../components/QueryRecipeButton";
+import { fetchJson } from "../lib/api";
 
 const QUERY_QUERY_KEY = "query_recipes";
 
 const fetchRecipesByQuery = async (query: RecipeQuery) => {
 	try {
-		const response = await fetch(
-			`/api/recipesByQuery?name=${query.name}&cuisine=${query.cuisine}&diet=${query.diet}`
+		const recipes = await fetchJson(
+			`/api/recipesByQuery?name=${query.name}&cuisine=${query.cuisine}&diet=${query.diet}`, {}
 		);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
-		const recipes = await response.json();
 		return recipes;
 	} catch (error) {
-		console.error(error);
-		return undefined;
+		throw error;
 	}
 };
 

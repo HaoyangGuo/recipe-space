@@ -2,39 +2,30 @@ import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Recipe } from "../../types/types";
 import { useSession } from "next-auth/react";
+import { fetchJson } from "../../lib/api";
 
 const RECIPE_QUERY_KEY = "recipe";
 
 const fetchRecipe = async (id: string) => {
 	try {
-		const response = await fetch(`/api/recipe?id=${id}`);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
-		const recipe = await response.json();
+		const recipe = await fetchJson(`/api/recipe?id=${id}`, {});
 		return recipe;
 	} catch (error) {
-		console.error(error);
-		return undefined;
+		throw error;
 	}
 };
 
 const saveRecipe = async ({ recipe, id }: { recipe: Recipe; id: string }) => {
 	try {
-		const response = await fetch(`/api/saveRecipe?id=${id}`, {
+		await fetchJson(`/api/saveRecipe?id=${id}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(recipe),
-		});
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
-		return await response.json();
+		})
 	} catch (error) {
-		console.error(error);
-		return undefined;
+		throw error;
 	}
 };
 
