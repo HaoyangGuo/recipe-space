@@ -10,9 +10,6 @@ export default async function handler(
 		const response = await fetch(
 			`https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`
 		);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
 		const recipe = (await response.json()) as Recipe;
 		res.status(200).json(recipe);
 	} catch (error: any) {

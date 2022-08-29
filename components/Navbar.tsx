@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
 function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
+
+	const router = useRouter();
 
 	const { data: session } = useSession();
 
@@ -46,7 +49,9 @@ function Navbar() {
 								alt="logout"
 								height={20}
 								width={20}
-								onClick={() => signOut()}
+								onClick={() => {
+									signOut();
+								}}
 								layout="fixed"
 							/>
 						</div>
@@ -71,7 +76,13 @@ function Navbar() {
 									<Link href={`/user/${session.id}`}>
 										<a>{session.user?.name}</a>
 									</Link>
-									<button onClick={() => signOut()}>Logout</button>
+									<button
+										onClick={() => {
+											signOut();
+										}}
+									>
+										Logout
+									</button>
 								</>
 							) : (
 								<button onClick={() => signIn()}>Login</button>

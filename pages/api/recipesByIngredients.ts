@@ -10,9 +10,6 @@ export default async function handler(
 		const response = await fetch(
 			`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=20&apiKey=${process.env.SPOONACULAR_API_KEY}`
 		);
-		if (!response.ok) {
-			throw new Error(response.statusText);
-		}
 		const recipes = (await response.json()) as Recipe[];
 		res.status(200).json(recipes);
 	} catch (error: any) {
