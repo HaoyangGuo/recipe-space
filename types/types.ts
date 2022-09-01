@@ -17,3 +17,9 @@ export interface User {
 	name: string | null;
 	savedRecipes?: Recipe[];
 }
+
+export interface Post {
+	title: string;
+	content: string;
+	image: FileList;
+}

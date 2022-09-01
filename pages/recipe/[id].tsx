@@ -72,7 +72,7 @@ const RecipeIntermediatePage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10 flex flex-col justify-center items-center">
-			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-32 flex flex-col gap-3 items-center shadow-lg">
+			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-32 flex flex-col gap-3 items-center shadow-lg h-96">
 				<a
 					className="cursor-pointer underline text-center text-2xl"
 					href={`${data.sourceUrl}`}

@@ -76,7 +76,7 @@ const IngredientsForm: React.FC = () => {
 							<div key={field.id} className="pb-3">
 								<div className="flex items-center justify-between">
 									<label>
-										{`ingredient ${index + 1}.`}
+										{`Ingredient ${index + 1}.`}
 										<input
 											className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
 											{...register(
@@ -119,7 +119,7 @@ const IngredientsForm: React.FC = () => {
 						</div>
 					)}
 					<button
-						className="cursor-pointer py-1 px-6 mt-4 text-lg font-semibold w-min self-center border rounded-full bg-gray-200 hover:bg-gray-400"
+						className="cursor-pointer py-1 px-6 mt-4 text-md font-semibold w-min self-center border rounded-full bg-gray-200 hover:bg-gray-400"
 						type="submit"
 					>
 						Search

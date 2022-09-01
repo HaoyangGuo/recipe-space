@@ -62,6 +62,8 @@ const UserPage: React.FC = () => {
 		);
 	}
 
+	console.log(data);
+
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
 			<div className="bg-white rounded-lg shadow-md h-50 flex flex-col items-center justify-start">

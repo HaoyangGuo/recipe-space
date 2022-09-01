@@ -47,7 +47,11 @@ export interface RecipeQuery {
 	diet: Diet;
 }
 
-export const QueryAtom = atom<RecipeQuery>({name: "", cuisine: Cuisine.All, diet: Diet.All});
+export const QueryAtom = atom<RecipeQuery>({
+	name: "",
+	cuisine: Cuisine.All,
+	diet: Diet.All,
+});
 
 const QueryForm: React.FC = () => {
 	const [query, updateQuery] = useAtom(QueryAtom);
@@ -56,7 +60,6 @@ const QueryForm: React.FC = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm<RecipeQuery>();
 
@@ -95,14 +98,14 @@ const QueryForm: React.FC = () => {
 				</div>
 				<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
 					<label className="mb-5">
-						name:
+						Name:
 						<input
-							{...register("name", { required: false })}
+							{...register("name", { required: true })}
 							className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
 						/>
 					</label>
 					<label className="mb-5">
-						cuisine:
+						Cuisine:
 						<select
 							{...register("cuisine", { required: true })}
 							className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
@@ -114,8 +117,8 @@ const QueryForm: React.FC = () => {
 							))}
 						</select>
 					</label>
-					<label className="mb-5">
-						diet:
+					<label className="mb-1">
+						Diet:
 						<select
 							{...register("diet", { required: true })}
 							className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
@@ -131,7 +134,7 @@ const QueryForm: React.FC = () => {
 						<div className="text-red-700">please enter a name!</div>
 					)}
 					<button
-						className="cursor-pointer py-1 px-6 text-lg font-semibold w-min self-center border rounded-full bg-gray-200 hover:bg-gray-400"
+						className="cursor-pointer py-1 mt-4 px-6 text-md font-semibold w-min self-center border rounded-full bg-gray-200 hover:bg-gray-400"
 						type="submit"
 					>
 						Search
