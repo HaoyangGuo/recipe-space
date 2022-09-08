@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
   @apply bg-orange-50;
   @apply text-gray-600;
+  @apply font-Inter;
 }

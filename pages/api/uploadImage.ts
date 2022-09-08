@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { options } from "./auth/[...nextauth]";
-import { fetchJson } from "../../lib/api";
-import axios from "axios";
 import cloudinary from "cloudinary";
-// import formidable, { IncomingForm } from "formidable-serverless";
 import { IncomingForm } from "formidable";
 
 export const config = {
@@ -14,12 +11,12 @@ export const config = {
 };
 
 cloudinary.v2.config({
-	cloud_name: "djmi1dhtm",
-	api_key: "333248695731175",
-	api_secret: "6_mXkhf72A7HeEjsVycBo9ezUrY",
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function getImage(formData) {
+export async function getImage(formData: any) {
 	const data = await new Promise(function (resolve, reject) {
 		const form = new IncomingForm({ keepExtensions: true });
 		form.parse(formData, function (err, fields, files) {
@@ -41,27 +38,28 @@ export default async function handler(
 			const session = await unstable_getServerSession(req, res, options);
 			if (session && session.id === id) {
 				try {
-					const data = await getImage(req);
-
-					// console.log(data);
-					// console.log(data.files.file.filepath);
-
-					const response = await cloudinary.v2.uploader.upload(data.files.file.filepath, {
-						upload_preset: "recipe-space",
-					});
+					const data = await getImage(req) as any;
+					const response = await cloudinary.v2.uploader.upload(
+						data.files.file.filepath,
+						{
+							upload_preset: "recipe-space",
+							eager_async: true,
+						}
+					);
 
 					const url = response.secure_url;
+					const publicId = response.public_id;
 
-					res.status(200).json(url as string);
+					res.status(200).json({ imageUrl: url, imagePublicId: publicId });
 				} catch (error: any) {
 					console.log(error);
 					res.status(500).send(error.message);
 				}
 			} else {
-				res.status(401).end();
+				res.status(401).send({ Unauthorized: "You are not logged in" });
 			}
 			break;
 		default:
-			res.status(405).end();
+			res.status(405).send({ "Method Not Allowed": "Use POST" });
 	}
 }

@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { options } from "./auth/[...nextauth]";
 import { User, Recipe } from "../../types/types";
-import prisma from "../../lib/prisma";
+import { prisma } from "../../lib/prisma";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -26,6 +26,6 @@ export default async function handler(
 			res.status(500).send(error.message);
 		}
 	} else {
-		res.status(401);
+		res.status(401).send({ Unauthorized: "You are not logged in" });
 	}
 }

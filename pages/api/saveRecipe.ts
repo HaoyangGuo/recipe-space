@@ -2,8 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { options } from "./auth/[...nextauth]";
 import { Recipe } from "../../types/types";
-import prisma from "../../lib/prisma";
-
+import { prisma } from "../../lib/prisma";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -52,15 +51,15 @@ export default async function handler(
 						},
 					});
 
-					res.status(200).json({});
+					res.status(200).json({ Success: "Recipe saved" });
 				} catch (error: any) {
 					res.status(500).send(error.message);
 				}
 			} else {
-				res.status(401).end();
+				res.status(401).send({ Unauthorized: "You are not logged in" });
 			}
 			break;
 		default:
-			res.status(405).end();
+			res.status(405).send({ "Method Not Allowed": "Use POST" });
 	}
 }

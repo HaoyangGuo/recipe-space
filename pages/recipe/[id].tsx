@@ -23,7 +23,7 @@ const saveRecipe = async ({ recipe, id }: { recipe: Recipe; id: string }) => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(recipe),
-		})
+		});
 	} catch (error) {
 		throw error;
 	}
@@ -48,10 +48,14 @@ const RecipeIntermediatePage: React.FC = () => {
 	);
 
 	const handldeSave = async () => {
-		mutation.mutate({
+		await mutation.mutate({
 			recipe: data!,
 			id: session!.id as string,
 		});
+	};
+
+	const handleShare = () => {
+		router.push(`/feed`);
 	};
 
 	if (isLoading) {
@@ -72,9 +76,9 @@ const RecipeIntermediatePage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10 flex flex-col justify-center items-center">
-			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-32 flex flex-col gap-3 items-center shadow-lg h-96">
+			<div className="bg-blue-50 rounded lg:w-2/3 px-5 py-20 flex flex-col gap-3 items-center shadow-lg h-96">
 				<a
-					className="cursor-pointer underline text-center text-2xl"
+					className="cursor-pointer underline text-center text-2xl hover:text-blue-600"
 					href={`${data.sourceUrl}`}
 					rel="noreferrer"
 					target="_blank"
@@ -86,13 +90,16 @@ const RecipeIntermediatePage: React.FC = () => {
 				<div className="flex gap-6 shrink-0">
 					<div
 						onClick={handldeSave}
-						className="border border-black max-w-full font-semibold p-2 rounded-lg hover:bg-black hover:text-white cursor-pointer underline"
+						className="max-w-full font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
 					>
 						Save Recipe
 					</div>
-					<div className="border border-black max-w-full  font-semibold p-2 rounded-lg hover:bg-black hover:text-white cursor-pointer underline">
-						Share Your Result!
+					<div onClick={handleShare} className="max-w-full  font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer">
+						Share Your Result! <span className="text-red-400">*</span>
 					</div>
+				</div>
+				<div className="italic text-red-400">
+					*Make sure to save the recipe first so you can share your result later
 				</div>
 				{mutation.isLoading && (
 					<div>

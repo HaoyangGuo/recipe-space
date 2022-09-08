@@ -131,7 +131,7 @@ const QueryForm: React.FC = () => {
 						</select>
 					</label>
 					{errors.name && (
-						<div className="text-red-700">please enter a name!</div>
+						<div className="text-red-700">*please enter a name!</div>
 					)}
 					<button
 						className="cursor-pointer py-1 mt-4 px-6 text-md font-semibold w-min self-center border rounded-full bg-gray-200 hover:bg-gray-400"

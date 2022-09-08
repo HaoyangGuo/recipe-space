@@ -5,10 +5,11 @@ import { User } from "../../types/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchJson } from "../../lib/api";
 import SavedRecipe from "../../components/SavedRecipe";
+import SavedPost from "../../components/SavedPost";
 
 export const USER_QUERY_KEY = "user";
 
-const fetchUser = async (id: string) => {
+export const fetchUser = async (id: string) => {
 	try {
 		const user = await fetchJson(`/api/user?id=${id}`, {});
 		return user;
@@ -62,8 +63,6 @@ const UserPage: React.FC = () => {
 		);
 	}
 
-	console.log(data);
-
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
 			<div className="bg-white rounded-lg shadow-md h-50 flex flex-col items-center justify-start">
@@ -95,7 +94,7 @@ const UserPage: React.FC = () => {
 						<div className="font-semibold text-lg text-center">
 							Saved Recipes
 						</div>
-						<div className="bg-white min-w-full h-72 rounded-lg mt-3 overflow-scroll">
+						<div className="bg-white min-w-full h-72 rounded-lg mt-3 overflow-auto">
 							{data!.savedRecipes!.map((recipe) => (
 								<SavedRecipe key={recipe.id} {...recipe} />
 							))}
@@ -103,7 +102,13 @@ const UserPage: React.FC = () => {
 					</div>
 					<div className="p-2 ">
 						<div className="font-semibold text-lg text-center">Posts</div>
-						<div className="bg-white min-w-full h-72 rounded-lg mt-3 overflow-scroll"></div>
+						<div className="overflow-hidden">
+							<div className="bpx-content pr-5 bg-white min-w-full h-72 rounded-lg mt-3 overflow-auto">
+								{data!.posts!.map((post, i) => (
+									<SavedPost key={i} {...post} />
+								))}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

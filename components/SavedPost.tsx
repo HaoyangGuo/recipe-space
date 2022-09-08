@@ -1,4 +1,4 @@
-import { Recipe } from "../types/types";
+import { Post } from "../types/types";
 import { useRouter } from "next/router";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { fetchJson } from "../lib/api";
@@ -6,31 +6,40 @@ import { useSession } from "next-auth/react";
 import { USER_QUERY_KEY } from "../pages/user/[id]";
 import Image from "next/image";
 
-const unsaveRecipe = async ({ recipe, id }: { recipe: Recipe; id: string }) => {
+const deletePost = async ({
+	postId,
+	imagePublicId,
+	id,
+}: {
+	postId: string;
+	imagePublicId: string;
+	id: string;
+}) => {
 	try {
-		await fetchJson(`/api/deleteSavedRecipe?id=${id}`, {
+		await fetchJson(`/api/deletePost?id=${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(recipe),
+			body: JSON.stringify({ postId, imagePublicId }),
 		});
 	} catch (error) {
 		throw error;
 	}
 };
 
-const SavedRecipe: React.FC<Recipe> = ({ id, title, image }) => {
-	const router = useRouter();
+const SavedPost: React.FC<Post> = ({ id: postId, title, imagePublicId }) => {
+	// const router = useRouter();
 	const { data: session } = useSession();
 	const queryClient = useQueryClient();
 
-	const handleRecipeOnClick = () => {
-		router.push(`/recipe/${id}`);
+	const handlePostOnClick = () => {
+		// router.push(`/recipe/${id}`);
 	};
 
 	const mutation = useMutation(
-		(savedRecipe: { recipe: Recipe; id: string }) => unsaveRecipe(savedRecipe),
+		(deletingPost: { postId: string; imagePublicId: string; id: string }) =>
+			deletePost(deletingPost),
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries([USER_QUERY_KEY]);
@@ -40,7 +49,8 @@ const SavedRecipe: React.FC<Recipe> = ({ id, title, image }) => {
 
 	const handleDeleteOnClick = async () => {
 		await mutation.mutate({
-			recipe: { id, title, image },
+			postId,
+			imagePublicId,
 			id: session!.id as string,
 		});
 	};
@@ -53,10 +63,10 @@ const SavedRecipe: React.FC<Recipe> = ({ id, title, image }) => {
 				) : (
 					<>
 						<div
-							onClick={handleRecipeOnClick}
+							onClick={handlePostOnClick}
 							className="underline cursor-pointer hover:text-blue-400"
 						>
-							{title}
+								{title}
 						</div>
 						<Image
 							onClick={handleDeleteOnClick}
@@ -73,4 +83,4 @@ const SavedRecipe: React.FC<Recipe> = ({ id, title, image }) => {
 	);
 };
 
-export default SavedRecipe;
+export default SavedPost;

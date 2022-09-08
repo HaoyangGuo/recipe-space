@@ -9,7 +9,7 @@ function Navbar() {
 
 	const router = useRouter();
 
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 
 	const handleMenuClick = () => {
 		setIsOpen(!isOpen);
@@ -17,7 +17,7 @@ function Navbar() {
 
 	return (
 		<div className="w-screen bg-white flex justify-center sticky top-0 z-50">
-			<div className="flex flex-col items-center w-screen sm:w-2/3 justify-between lg:h-16 p-1 lg:p-2 lg:flex-row">
+			<div className="flex flex-col items-center w-screen sm:w-2/3 justify-between p-2 lg:flex-row">
 				<Link href="/">
 					<div className="flex items-center">
 						<Image src="/icons/logo.png" alt="logo" height={40} width={40} />
@@ -26,54 +26,61 @@ function Navbar() {
 						</div>
 					</div>
 				</Link>
-				<div className="gap-10 font-semibold hidden lg:flex items-center">
+				<div className="gap-10 hidden lg:flex items-center">
 					<Link href="/search">
 						<a>Search</a>
 					</Link>
 					<Link href="/feed">
-						<a>Post</a>
+						<a>Share</a>
 					</Link>
 					<Link href="/feed">
 						<a className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
 							Check out what others made!
 						</a>
 					</Link>
-					{session ? (
-						<div className="flex items-center gap-2">
-							<Link href={`/user/${session.id}`}>
-								<a>{session.user?.name}</a>
-							</Link>
-							<Image
-								className="cursor-pointer"
-								src={"/icons/logout.png"}
-								alt="logout"
-								height={20}
-								width={20}
-								onClick={() => {
-									signOut();
-								}}
-								layout="fixed"
-							/>
-						</div>
+					{status === "loading" ? (
+						<div>Loading...</div>
 					) : (
-						<button onClick={() => signIn("google")}>Login</button>
+						<div>
+							{session ? (
+								<div className="flex items-center gap-2">
+									<Link href={`/user/${session.id}`}>
+										<a>{session.user?.name}</a>
+									</Link>
+									<Image
+										className="cursor-pointer"
+										src={"/icons/logout.png"}
+										alt="logout"
+										height={20}
+										width={20}
+										onClick={() => {
+											signOut();
+										}}
+										layout="fixed"
+									/>
+								</div>
+							) : (
+								<button onClick={() => signIn("google")}>Login</button>
+							)}
+						</div>
 					)}
 				</div>
-				<div className="lg:hidden font-semibold">
+				<div className="lg:hidden">
 					{isOpen ? (
 						<div className="flex flex-col p-3 rounded gap-2 transition-all duration-150 ease-linear items-center">
-							<Link href="/search" >
+							<Link href="/search">
 								<a onClick={handleMenuClick}>Search</a>
 							</Link>
-							<Link href="/feed" >
-								<a onClick={handleMenuClick}>Post</a>
+							<Link href="/feed">
+								<a onClick={handleMenuClick}>Share</a>
 							</Link>
-							<Link href="/feed" >
+							<Link href="/feed">
 								<a onClick={handleMenuClick}>Feed</a>
 							</Link>
+
 							{session ? (
 								<>
-									<Link href={`/user/${session.id}`} >
+									<Link href={`/user/${session.id}`}>
 										<a onClick={handleMenuClick}>{session.user?.name}</a>
 									</Link>
 									<button
@@ -94,6 +101,7 @@ function Navbar() {
 									Login
 								</button>
 							)}
+
 							<div className="rotate-180 cursor-pointer">
 								<Image
 									src={"/icons/menu.png"}

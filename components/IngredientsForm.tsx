@@ -115,7 +115,7 @@ const IngredientsForm: React.FC = () => {
 					)}
 					{errors.ingredients?.length !== 1 && errors.ingredients && (
 						<div className="text-red-700">
-							please remove empty ingredient(s)!
+							*please remove empty ingredient(s)!
 						</div>
 					)}
 					<button
