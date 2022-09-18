@@ -301,7 +301,7 @@ const FeedPage: React.FC = () => {
 							name="sort"
 							value={sortingMethod}
 							onChange={handleSortingMethodChange}
-							className="px-3 text-center bg-gray-200 "
+							className="px-3 text-center bg-white "
 						>
 							<option value="mostrecent">most recent</option>
 							<option value="mostliked">most liked</option>

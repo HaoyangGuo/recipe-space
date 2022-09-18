@@ -6,7 +6,7 @@ import Image from "next/image";
 const Home: NextPage = () => {
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
-			<div className="flex flex-col items-center pt-10 sm:pt-14 gap-5">
+			<div className="flex flex-col items-center pt-10 sm:pt-14 pb-14 gap-5">
 				<div className="w-10/12 text-2xl sm:text-3xl text-center">
 					Discover Thousands of Refined Recipes On the Internet Based On
 					Ingredients You Have!
