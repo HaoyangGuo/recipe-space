@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 				</Link>
 				<div className="w-full">
 					<Image
-						src="/recipes-screenshot.png"
+						src="/image/recipes-screenshot.png"
 						alt="recipes"
 						width={1000}
 						height={600}
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 				</div>
 				<div className="w-full">
 					<Image
-						src="/feed-screenshot.png"
+						src="/image/feed-screenshot.png"
 						alt="feed"
 						width={1000}
 						height={550}
