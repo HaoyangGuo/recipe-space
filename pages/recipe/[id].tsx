@@ -76,7 +76,7 @@ const RecipeIntermediatePage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10 flex flex-col justify-center items-center">
-			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-20 flex flex-col gap-3 items-center shadow-lg h-96">
+			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-20 flex flex-col gap-3 items-center shadow-lg">
 				<a
 					className="cursor-pointer underline text-center text-2xl hover:text-blue-600"
 					href={`${data.sourceUrl}`}
@@ -86,7 +86,7 @@ const RecipeIntermediatePage: React.FC = () => {
 					Click here to view the full recipe for{" "}
 					<span className="font-semibold">{data.title}</span> in a new tab!
 				</a>
-				<div className="text-2xl">If you like the recipe, you can:</div>
+				<div className="text-2xl text-center">If you like the recipe, you can:</div>
 				<div className="flex gap-6 shrink-0">
 					{session && session.id !== undefined ? (
 						<div
