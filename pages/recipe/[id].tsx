@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Recipe } from "../../types/types";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { fetchJson } from "../../lib/api";
 
 const RECIPE_QUERY_KEY = "recipe";
@@ -88,15 +88,36 @@ const RecipeIntermediatePage: React.FC = () => {
 				</a>
 				<div className="text-2xl">If you like the recipe, you can:</div>
 				<div className="flex gap-6 shrink-0">
-					<div
-						onClick={handldeSave}
-						className="max-w-full font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
-					>
-						Save Recipe
-					</div>
-					<div onClick={handleShare} className="max-w-full  font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer">
-						Share Your Result! <span className="">*</span>
-					</div>
+					{session && session.id !== undefined ? (
+						<div
+							onClick={handldeSave}
+							className="max-w-full font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
+						>
+							Save Recipe
+						</div>
+					) : (
+						<div
+							onClick={() => signIn("google")}
+							className="max-w-full font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
+						>
+							Save Recipe
+						</div>
+					)}
+					{session && session.id !== undefined ? (
+						<div
+							onClick={handleShare}
+							className="max-w-full  font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
+						>
+							Share Your Result! <span className="">*</span>
+						</div>
+					) : (
+						<div
+							onClick={() => signIn("google")}
+							className="max-w-full  font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer"
+						>
+							Share Your Result! <span className="">*</span>
+						</div>
+					)}
 				</div>
 				<div className="italic">
 					*Make sure to save the recipe first so you can share your result later
