@@ -36,7 +36,9 @@ const IngredientsForm: React.FC = () => {
 
 	const onSubmit = (data: FormValues) => {
 		if (data.ingredients.length > 0) {
-			updateIngredientList(data.ingredients.map((ingredient) => ingredient.ingredientName));
+			updateIngredientList(
+				data.ingredients.map((ingredient) => ingredient.ingredientName)
+			);
 			router.push({
 				pathname: "/ingredients-result",
 			});
@@ -74,20 +76,18 @@ const IngredientsForm: React.FC = () => {
 					{fields.map((field, index) => {
 						return (
 							<div key={field.id} className="pb-3">
-								<div className="flex items-center justify-between">
-									<label>
-										{`Ingredient ${index + 1}.`}
-										<input
-											className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
-											{...register(
-												`ingredients.${index}.ingredientName` as const,
-												{ required: true }
-											)}
-										/>
-									</label>
+								<div className="flex items-center gap-3">
+									<label>{`Ingredient ${index + 1}.`}</label>
+									<input
+										className="w-32 sm:w-44 p-1 bg-gray-200 rounded shadow-sm text-center block"
+										{...register(
+											`ingredients.${index}.ingredientName` as const,
+											{ required: true }
+										)}
+									/>
 									{fields.length >= 2 && (
 										<button
-											className="cursor-pointer"
+											className="cursor-pointer shrink-0 ml-auto"
 											type="button"
 											onClick={() => remove(index)}
 										>
