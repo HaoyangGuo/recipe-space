@@ -130,18 +130,6 @@ const FeedPage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
-			<div className="text-lg font-semibold bg-green-200 p-5 mb-5 rounded-md lg:sticky lg:top-14 z-50 flex justify-end gap-5">
-				<label htmlFor="sort">Sort By:</label>
-				<select
-					name="sort"
-					value={sortingMethod}
-					onChange={handleSortingMethodChange}
-					className="px-3 text-center bg-green-50 "
-				>
-					<option value="mostrecent">most recent</option>
-					<option value="mostliked">most liked</option>
-				</select>
-			</div>
 			<div className="flex flex-col lg:justify-start lg:flex-row gap-5 lg:gap-10">
 				<div>
 					<div className="bg-white rounded-md shadow-lg lg:w-80 p-5">
@@ -304,6 +292,21 @@ const FeedPage: React.FC = () => {
 					</div>
 				</div>
 				<div className=" bg-white rounded-md shadow-lg overflow-auto p-5 w-full">
+					<div className="text-lg font-semibold bg-gray-100 p-5 mb-5 rounded-md flex gap-3 min-w-full">
+						<div className="self-start mr-auto">
+							Posts
+						</div>
+						<label htmlFor="sort">Sort By:</label>
+						<select
+							name="sort"
+							value={sortingMethod}
+							onChange={handleSortingMethodChange}
+							className="px-3 text-center bg-gray-200 "
+						>
+							<option value="mostrecent">most recent</option>
+							<option value="mostliked">most liked</option>
+						</select>
+					</div>
 					{isLoading ? (
 						<div className="w-full text-center">Loading...</div>
 					) : (

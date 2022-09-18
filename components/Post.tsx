@@ -4,6 +4,7 @@ import { fetchJson } from "../lib/api";
 import Image from "next/image";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 interface PostProps {
 	userId: string;
@@ -83,13 +84,20 @@ const PostComponent: React.FC<PostProps> = ({ postId, userId }) => {
 	);
 
 	function handleLikeButtonClick() {
+		if (!userId) {
+			signIn("google");
+			return;
+		}
 		likePostMutation.mutate({ postId, userId });
 	}
 
 	function handleUnlikeButtonClick() {
+		if (!userId) {
+			signIn("google");
+			return;
+		}
 		unlikePostMutation.mutate({ postId, userId });
 	}
-
 
 	if (isLoading) {
 		return <div></div>;

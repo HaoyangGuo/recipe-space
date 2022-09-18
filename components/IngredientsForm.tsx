@@ -105,7 +105,7 @@ const IngredientsForm: React.FC = () => {
 					})}
 					{fields.length < 8 && (
 						<button
-							className="bg-green-500 hover:bg-green-700 text-white font-bold mt-3 py-1 px-2 rounded flex items-center justify-center"
+							className="bg-green-600 hover:bg-green-700 text-white mt-3 py-1 px-2 rounded flex items-center justify-center"
 							type="button"
 							onClick={() => append({ ingredientName: "" })}
 						>

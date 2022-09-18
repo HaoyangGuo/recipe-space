@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 					Ingredients You Have!
 				</div>
 				<Link href="/search">
-					<button className="px-5 py-2 rounded-md bg-green-500 font-semibold text-xl hover:bg-green-700 text-white">
+					<button className="px-5 py-2 rounded-md bg-green-600 font-semibold text-xl hover:bg-green-700 text-white">
 						start cooking!
 					</button>
 				</Link>
