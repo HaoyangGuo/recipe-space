@@ -91,7 +91,7 @@ const QueryForm: React.FC = () => {
 					width={25}
 				/>
 			</div>
-			<div className="grow-0 shrink-0 min-w-max py-5 bg-white rounded-md shadow-md px-10 md:px-5">
+			<div className="min-w-max py-5 bg-white rounded-md shadow-md px-10 md:px-5">
 				<div className="flex items-center pb-4 ">
 					<div className="text-lg font-semibold mr-2">Search by name</div>
 					<Image src="/icons/search.png" alt="search" height={25} width={25} />
