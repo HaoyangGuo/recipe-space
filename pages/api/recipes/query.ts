@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchJson } from "../../lib/api";
-import { Recipe } from "../../types/types";
+import { fetchJson } from "../../../lib/api";
+import { Recipe } from "../../../types/types";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler(
 	const { name, cuisine, diet } = req.query;
 	try {
 		const data = await fetchJson(
-			`https://api.spoonacular.com/recipes/complexSearch?query=${name}&cuisine=${cuisine}&diet=${diet}&number=20&apiKey=${process.env.SPOONACULAR_API_KEY}`,
+			`https://api.spoonacular.com/recipes/complexSearch?query=${name}&cuisine=${cuisine}&diet=${diet}&number=50&apiKey=${process.env.SPOONACULAR_API_KEY}`,
 			{}
 		);
 		const recipes = data.results as Recipe[];

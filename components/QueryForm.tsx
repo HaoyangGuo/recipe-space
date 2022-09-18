@@ -100,7 +100,7 @@ const QueryForm: React.FC = () => {
 					<label className="mb-5">
 						Name:
 						<input
-							{...register("name", { required: true })}
+							{...register("name")}
 							className="mx-4 p-1 bg-gray-200 rounded shadow-sm text-center"
 						/>
 					</label>

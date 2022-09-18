@@ -13,7 +13,7 @@ const QUERY_QUERY_KEY = "query_recipes";
 const fetchRecipesByQuery = async (query: RecipeQuery) => {
 	try {
 		const recipes = await fetchJson(
-			`/api/recipesByQuery?name=${query.name}&cuisine=${query.cuisine}&diet=${query.diet}`, {}
+			`/api/recipes/query?name=${query.name}&cuisine=${query.cuisine}&diet=${query.diet}`, {}
 		);
 		return recipes;
 	} catch (error) {

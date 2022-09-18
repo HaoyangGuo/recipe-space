@@ -16,7 +16,7 @@ class MyDocument extends Document {
 						rel="stylesheet"
 					/>
 				</Head>
-				<body>
+				<body className="overflow-x-hidden m-0">
 					<Main />
 					<NextScript />
 				</body>

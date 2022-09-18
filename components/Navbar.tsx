@@ -15,13 +15,20 @@ function Navbar() {
 		setIsOpen(!isOpen);
 	};
 
+	const handleIconClick = () => {
+		setIsOpen(false);
+	};
+
 	return (
 		<div className="w-screen bg-white flex justify-center sticky top-0 z-50">
 			<div className="flex flex-col items-center w-screen sm:w-2/3 justify-between p-2 lg:flex-row">
 				<Link href="/">
 					<div className="flex items-center">
 						<Image src="/icons/logo.png" alt="logo" height={40} width={40} />
-						<div className="text-2xl font-bold sm:ml-3 cursor-pointer hover:text-blue-700">
+						<div
+							onClick={handleIconClick}
+							className="text-2xl font-bold sm:ml-3 cursor-pointer hover:text-blue-700"
+						>
 							recipe space
 						</div>
 					</div>

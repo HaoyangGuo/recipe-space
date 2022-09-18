@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const unsaveRecipe = async ({ recipe, id }: { recipe: Recipe; id: string }) => {
 	try {
-		await fetchJson(`/api/deleteSavedRecipe?id=${id}`, {
+		await fetchJson(`/api/recipe/delete?id=${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -48,7 +48,7 @@ const SavedRecipe: React.FC<Recipe> = ({ id, title, image }) => {
 	return (
 		<div className="border-b-2 border-gray-100 mx-2 px-6 py-3">
 			<div className="flex items-center justify-between">
-				{mutation.isLoading || mutation.isSuccess ? (
+				{mutation.isLoading ? (
 					<div className="text-red-600">Deleting...</div>
 				) : (
 					<>

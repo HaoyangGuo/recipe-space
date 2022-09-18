@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Recipe } from "../../types/types";
-import { fetchJson } from "../../lib/api";
+import { Recipe } from "../../../types/types";
+import { fetchJson } from "../../../lib/api";
 
 export default async function handler(
 	req: NextApiRequest,

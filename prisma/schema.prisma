@@ -57,20 +57,22 @@ model User {
   sessions      Session[]
   savedRecipes  Recipe[]
   posts         Post[]
+  likedPosts    Post[]    @relation(name: "LikedPosts")
 }
 
 model Post {
-  id        String   @id @default(cuid())
-  content   String   @db.VarChar(300)
-  title     String   @db.VarChar(50)
-  imageUrl  String
-  imagePublicId  String
-  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
-  recipeId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId  String
+  id            String   @id @default(cuid())
+  content       String   @db.VarChar(300)
+  title         String   @db.VarChar(50)
+  imageUrl      String
+  imagePublicId String
+  recipe        Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId      String
+  likedBy       User[]   @relation(name: "LikedPosts")
 }
 
 model VerificationToken {

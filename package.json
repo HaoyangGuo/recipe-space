@@ -31,6 +31,7 @@
     "@types/react-dom": "18.0.6",
     "@types/streamifier": "^0.1.0",
     "autoprefixer": "^10.4.8",
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.3",
     "postcss": "^8.4.14",

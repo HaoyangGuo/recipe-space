@@ -12,7 +12,7 @@ const INGREDIENTS_QUERY_KEY = "ingredient_recipes";
 const fetchRecipesByIngredients = async (ingredients: string[]) => {
 	try {
 		const recipes = await fetchJson(
-			`/api/recipesByIngredients?ingredients=${ingredients.join(",")}`, {}
+			`/api/recipes/ingredients?ingredients=${ingredients.join(",")}`, {}
 		);
 		return recipes;
 	} catch (error) {

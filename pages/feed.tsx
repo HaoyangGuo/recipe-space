@@ -6,6 +6,8 @@ import { Post, User } from "../types/types";
 import { fetchUser } from "./user/[id]";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { USER_QUERY_KEY } from "./user/[id]";
+import { atom, useAtom } from "jotai";
+import PostComponent from "../components/Post";
 
 const POSTS_QUERY_KEY = "posts";
 
@@ -15,7 +17,7 @@ const createPost = async ({ post, id }: { post: Post; id: string }) => {
 		image.append("file", post.image[0]);
 
 		const { imageUrl, imagePublicId } = await fetchJson(
-			`/api/uploadImage?id=${id}`,
+			`/api/image/upload?id=${id}`,
 			{
 				method: "POST",
 				body: image,
@@ -27,7 +29,7 @@ const createPost = async ({ post, id }: { post: Post; id: string }) => {
 		}
 		try {
 			await fetchJson(
-				`/api/createPost?id=${id}&imagePublicId=${imagePublicId}`,
+				`/api/post/create?id=${id}&imagePublicId=${imagePublicId}`,
 				{
 					method: "POST",
 					headers: {
@@ -42,7 +44,7 @@ const createPost = async ({ post, id }: { post: Post; id: string }) => {
 				}
 			);
 		} catch (error) {
-			await fetchJson(`/api/deleteImage?id=${id}`, {
+			await fetchJson(`/api/image/delete?id=${id}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
@@ -58,14 +60,20 @@ const createPost = async ({ post, id }: { post: Post; id: string }) => {
 	}
 };
 
-const fetchPosts = async () => {
+const fetchPosts = async (sortingMethod: string) => {
 	try {
-		const posts = await fetchJson(`/api/getPosts`, {});
-		return posts;
+		const posts = await fetchJson(`/api/posts/get?by=${sortingMethod}`, {});
+		const displayPosts = posts.map((post: any) => ({
+			...post,
+			author: post.author.name,
+		}));
+		return displayPosts;
 	} catch (error) {
 		throw error;
 	}
 };
+
+export const SortingMethodAtom = atom<string>("mostrecent");
 
 const FeedPage: React.FC = () => {
 	const {
@@ -76,7 +84,13 @@ const FeedPage: React.FC = () => {
 	} = useForm<Post>();
 
 	const { data: session, status } = useSession();
+	const userId = session?.id as string;
 	const queryClient = useQueryClient();
+
+	const [sortingMethod, updateSortingMethod] = useAtom(SortingMethodAtom);
+	function handleSortingMethodChange(e: any) {
+		updateSortingMethod(e.target.value);
+	}
 
 	const { data } = useQuery<User, Error>(
 		[USER_QUERY_KEY],
@@ -90,7 +104,10 @@ const FeedPage: React.FC = () => {
 		isLoading,
 		isError,
 		data: posts,
-	} = useQuery<Post[], Error>([POSTS_QUERY_KEY], () => fetchPosts());
+		refetch,
+	} = useQuery<Post[], Error>([POSTS_QUERY_KEY, sortingMethod], () =>
+		fetchPosts(sortingMethod)
+	);
 
 	const mutation = useMutation(
 		(creatingPost: { post: Post; id: string }) => createPost(creatingPost),
@@ -98,6 +115,9 @@ const FeedPage: React.FC = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries([POSTS_QUERY_KEY]);
 				reset();
+			},
+			onSettled: () => {
+				mutation.reset();
 			},
 		}
 	);
@@ -110,8 +130,17 @@ const FeedPage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
-			<div className="text-lg font-semibold bg-green-200 p-5  mb-5 rounded-md lg:sticky lg:top-14">
-				This is the query bar
+			<div className="text-lg font-semibold bg-green-200 p-5 mb-5 rounded-md lg:sticky lg:top-14 z-50 flex justify-end gap-5">
+				<label htmlFor="sort">Sort By:</label>
+				<select
+					name="sort"
+					value={sortingMethod}
+					onChange={handleSortingMethodChange}
+					className="px-3 text-center bg-green-50 "
+				>
+					<option value="mostrecent">most recent</option>
+					<option value="mostliked">most liked</option>
+				</select>
 			</div>
 			<div className="flex flex-col lg:justify-start lg:flex-row gap-5 lg:gap-10">
 				<div>
@@ -228,7 +257,14 @@ const FeedPage: React.FC = () => {
 								)}
 								{mutation.isError && (
 									<div className="self-center text-red-600">
-										Something went wrong, try again later
+										Something went wrong,{" "}
+										<span
+											className="text-blue-700 underline cursor-pointer"
+											onClick={() => mutation.reset()}
+										>
+											try again
+										</span>{" "}
+										later
 									</div>
 								)}
 								{mutation.isSuccess && (
@@ -267,83 +303,16 @@ const FeedPage: React.FC = () => {
 						)}
 					</div>
 				</div>
-				<div className=" bg-white rounded-md shadow-lg overflow-scroll p-5">
+				<div className=" bg-white rounded-md shadow-lg overflow-auto p-5 w-full">
 					{isLoading ? (
-						<div>Loading...</div>
+						<div className="w-full text-center">Loading...</div>
 					) : (
-						<div>
+						<div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
 							{posts!.map((post, i) => (
-								<div key={i}>{post.title}</div>
+								<PostComponent key={i} postId={post.id} userId={userId} />
 							))}
 						</div>
 					)}
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolores
-					hic beatae ducimus provident obcaecati at veritatis delectus
-					consequatur ad odio consectetur eaque voluptates exercitationem quod
-					ut harum, saepe iste? Et saepe aut optio veritatis ipsam asperiores,
-					nisi non totam repellendus consectetur quibusdam error consequuntur
-					est dignissimos unde. Ipsa molestias repellendus omnis tenetur eius
-					labore at ipsum nihil voluptatibus doloribus. Esse voluptas fugit
-					nesciunt nostrum at nihil obcaecati qui rerum inventore minima. Porro
-					nobis quidem maiores quibusdam aperiam eveniet, amet suscipit
-					excepturi voluptas deserunt minima quaerat ea quisquam voluptatem
-					error? Iste accusamus ad, rem ea assumenda necessitatibus provident
-					cupiditate in eius molestiae possimus aliquam, nesciunt quidem ipsum
-					numquam obcaecati sapiente voluptatum enim alias est delectus suscipit
-					ipsa. Cupiditate, assumenda quia? Explicabo, aliquam sit architecto
-					pariatur ex repellat voluptates iusto eligendi amet, laborum quos
-					ratione ipsa tenetur repudiandae. Iusto odit, veniam similique nihil
-					fuga itaque sint nam illo totam eum natus. Ad neque repudiandae odio,
-					maxime dolor culpa eaque architecto qui mollitia vero error eos
-					facilis deserunt fuga similique nam labore reiciendis corrupti? Non
-					officia quia optio excepturi corporis ducimus neque. Quasi quidem
-					atque quae, odit at nemo impedit repellendus quas vitae possimus quis
-					eveniet assumenda aspernatur eligendi dignissimos consectetur
-					voluptatum incidunt qui reiciendis. Veniam hic beatae recusandae,
-					cupiditate dolorem soluta. Illum aspernatur doloremque ullam dolore
-					cumque et molestias libero, aliquid provident. Consequatur, maiores
-					tempora? Quam mollitia vitae totam dolores quas autem repellendus qui
-					a excepturi earum! Sit perferendis rerum eum? In consequuntur nobis
-					inventore temporibus itaque obcaecati totam ducimus eligendi
-					doloremque quae? Commodi aliquam sapiente molestias a vitae quas quia
-					iste, minus cupiditate sed deleniti minima veniam repudiandae dicta
-					facilis. Corporis minima quod quasi quis eaque exercitationem rerum
-					illum corrupti explicabo odio eveniet temporibus aliquam animi
-					deserunt nesciunt esse ex perferendis quisquam unde et, quam beatae!
-					Nostrum harum repellat vitae. Cum quae maiores possimus quos ipsam
-					dolorum sequi quod, praesentium nemo aliquid accusantium ab ut dolorem
-					esse vel inventore, minus dicta laborum. Neque expedita error in
-					doloremque fugiat assumenda dolore. Nulla expedita natus quas quasi.
-					Illum ut eius maiores nobis porro sit dolore tempore delectus sed,
-					unde cumque tenetur fugiat. Quibusdam eaque in cupiditate! Recusandae
-					quas cumque eos voluptatum tempora. Tenetur neque omnis, magnam totam
-					quod quo unde? Repellendus harum commodi unde. Eveniet ullam
-					repellendus natus quisquam dolorum. Veniam ipsa voluptate totam enim
-					quas laborum repellendus porro similique veritatis aliquam. Voluptatum
-					soluta explicabo, sapiente animi molestias accusamus dolorum dolore
-					perspiciatis dolores illum quod sequi. Qui praesentium ad eius, nam
-					vel eaque eum magni perferendis, hic consectetur, possimus ipsa
-					obcaecati ex? Hic consectetur exercitationem voluptates, deserunt,
-					aliquam tempora voluptate, aut similique in commodi ipsam? Commodi
-					porro et possimus. Nulla necessitatibus voluptatum distinctio ipsa
-					rerum expedita, ea obcaecati, incidunt pariatur totam veniam. Maxime,
-					similique earum quas modi facilis aliquam laudantium sequi voluptatum
-					accusantium mollitia et doloremque. Tempore corporis dolores,
-					blanditiis fuga deleniti quibusdam veniam dolorem ex nobis earum
-					officiis facilis, eos consequatur! Illum similique voluptatem, minima
-					totam ab placeat sit repellendus ipsam dolor quaerat! Natus inventore
-					architecto ut labore, est perferendis dolor, perspiciatis ipsam beatae
-					quis aut ducimus officiis sit nemo facere. Inventore laboriosam, iste
-					doloremque commodi cum odio qui voluptates iusto aut eum nobis odit at
-					repellendus, dolorum nihil perspiciatis ab reiciendis cupiditate
-					itaque reprehenderit? Excepturi sunt ad ratione sint tenetur.
-					Exercitationem tenetur impedit et quae recusandae saepe quaerat, ab
-					similique laudantium, perspiciatis asperiores, laboriosam fugiat!
-					Impedit eius, quia soluta, vitae itaque magni deleniti alias pariatur
-					a iure rem eveniet illo. Nemo illum illo non. Incidunt, excepturi
-					numquam itaque ad provident quod rem tempore? Possimus nostrum esse
-					quis voluptatem architecto nesciunt praesentium, ipsa sunt, cupiditate
-					quisquam perspiciatis, molestiae deserunt. Quo, commodi.
 				</div>
 			</div>
 		</div>

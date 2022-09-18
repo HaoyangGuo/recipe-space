@@ -11,7 +11,7 @@ export const USER_QUERY_KEY = "user";
 
 export const fetchUser = async (id: string) => {
 	try {
-		const user = await fetchJson(`/api/user?id=${id}`, {});
+		const user = await fetchJson(`/api/user/get?id=${id}`, {});
 		return user;
 	} catch (error) {
 		throw error;
@@ -64,7 +64,7 @@ const UserPage: React.FC = () => {
 	}
 
 	return (
-		<div className="lg:mt-5 2xl:mt-10">
+		<div className="lg:mt-5 2xl:mt-10 min-w-full">
 			<div className="bg-white rounded-lg shadow-md h-50 flex flex-col items-center justify-start">
 				<div className="min-w-full pl-4 pt-1">
 					<Image

@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { options } from "./auth/[...nextauth]";
-import { Post } from "../../types/types";
-import { prisma } from "../../lib/prisma";
+import { options } from "../auth/[...nextauth]";
+import { prisma } from "../../../lib/prisma";
 
 export default async function handler(
 	req: NextApiRequest,

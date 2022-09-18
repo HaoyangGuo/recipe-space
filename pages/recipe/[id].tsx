@@ -8,7 +8,7 @@ const RECIPE_QUERY_KEY = "recipe";
 
 const fetchRecipe = async (id: string) => {
 	try {
-		const recipe = await fetchJson(`/api/recipe?id=${id}`, {});
+		const recipe = await fetchJson(`/api/recipe/get?id=${id}`, {});
 		return recipe;
 	} catch (error) {
 		throw error;
@@ -17,7 +17,7 @@ const fetchRecipe = async (id: string) => {
 
 const saveRecipe = async ({ recipe, id }: { recipe: Recipe; id: string }) => {
 	try {
-		await fetchJson(`/api/saveRecipe?id=${id}`, {
+		await fetchJson(`/api/recipe/save?id=${id}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -76,7 +76,7 @@ const RecipeIntermediatePage: React.FC = () => {
 
 	return (
 		<div className="lg:mt-5 2xl:mt-10 flex flex-col justify-center items-center">
-			<div className="bg-blue-50 rounded lg:w-2/3 px-5 py-20 flex flex-col gap-3 items-center shadow-lg h-96">
+			<div className="bg-green-50 rounded lg:w-2/3 px-5 py-20 flex flex-col gap-3 items-center shadow-lg h-96">
 				<a
 					className="cursor-pointer underline text-center text-2xl hover:text-blue-600"
 					href={`${data.sourceUrl}`}
@@ -84,7 +84,7 @@ const RecipeIntermediatePage: React.FC = () => {
 					target="_blank"
 				>
 					Click here to view the full recipe for{" "}
-					<span className="font-semibold">{data.title}</span>!
+					<span className="font-semibold">{data.title}</span> in a new tab!
 				</a>
 				<div className="text-2xl">If you like the recipe, you can:</div>
 				<div className="flex gap-6 shrink-0">
@@ -95,10 +95,10 @@ const RecipeIntermediatePage: React.FC = () => {
 						Save Recipe
 					</div>
 					<div onClick={handleShare} className="max-w-full  font-semibold p-2 rounded-lg bg-green-400 hover:bg-green-500 cursor-pointer">
-						Share Your Result! <span className="text-red-400">*</span>
+						Share Your Result! <span className="">*</span>
 					</div>
 				</div>
-				<div className="italic text-red-400">
+				<div className="italic">
 					*Make sure to save the recipe first so you can share your result later
 				</div>
 				{mutation.isLoading && (

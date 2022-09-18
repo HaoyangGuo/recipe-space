@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { options } from "./auth/[...nextauth]";
+import { options } from "../auth/[...nextauth]";
 import cloudinary from "cloudinary";
 import { IncomingForm } from "formidable";
 
@@ -38,12 +38,12 @@ export default async function handler(
 			const session = await unstable_getServerSession(req, res, options);
 			if (session && session.id === id) {
 				try {
-					const data = await getImage(req) as any;
+					const data = (await getImage(req)) as any;
 					const response = await cloudinary.v2.uploader.upload(
 						data.files.file.filepath,
 						{
 							upload_preset: "recipe-space",
-							eager_async: true,
+							transformation: [{ width: 500, height: 500, crop: "fill" }],
 						}
 					);
 

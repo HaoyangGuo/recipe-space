@@ -16,7 +16,7 @@ const deletePost = async ({
 	id: string;
 }) => {
 	try {
-		await fetchJson(`/api/deletePost?id=${id}`, {
+		await fetchJson(`/api/post/delete?id=${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -43,6 +43,7 @@ const SavedPost: React.FC<Post> = ({ id: postId, title, imagePublicId }) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries([USER_QUERY_KEY]);
+				mutation.reset();
 			},
 		}
 	);

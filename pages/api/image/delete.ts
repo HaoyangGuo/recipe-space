@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { options } from "./auth/[...nextauth]";
+import { options } from "../auth/[...nextauth]";
 import cloudinary from "cloudinary";
 
 cloudinary.v2.config({
