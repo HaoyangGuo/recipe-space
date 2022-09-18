@@ -7,7 +7,7 @@ const Home: NextPage = () => {
 	return (
 		<div className="lg:mt-5 2xl:mt-10">
 			<div className="flex flex-col items-center pt-10 sm:pt-14 gap-5">
-				<div className="w-10/12 font-semibold text-2xl sm:text-3xl text-center">
+				<div className="w-10/12 text-2xl sm:text-3xl text-center">
 					Discover Thousands of Refined Recipes On the Internet Based On
 					Ingredients You Have!
 				</div>
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 						layout="responsive"
 					/>
 				</div>
-				<div className="w-10/12 font-semibold text-2xl sm:text-3xl text-center">
+				<div className="w-10/12 text-2xl sm:text-3xl text-center">
 					Join our community and share what you made!
 				</div>
 				<div className="w-full">
