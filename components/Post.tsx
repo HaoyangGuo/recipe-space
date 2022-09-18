@@ -137,12 +137,12 @@ const PostComponent: React.FC<PostProps> = ({ postId, userId }) => {
 				</div>
 			</div>
 			<div className="flex flex-col p-3">
-				<div className="m-auto xl:m-0 font-semibold">{post.title}</div>
-				<div className="text-gray-400 m-auto xl:m-0 text-sm">
+				<div className="font-semibold">{post.title}</div>
+				<div className="text-gray-400 text-sm">
 					{post.author.name}
 				</div>
 				<div
-					className="m-auto xl:m-0 underline hover:text-blue-600 text-sm cursor-pointer"
+					className=" underline hover:text-blue-600 text-sm cursor-pointer"
 					onClick={() => {
 						Router.push(`/recipe/${post.recipe.id}`);
 					}}

@@ -44,8 +44,8 @@ const IngredientsForm: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-3">
-			<div className="container p-3 bg-white rounded-md shadow-md">
+		<div className="flex flex-col gap-3 md:w-96 shrink-0">
+			<div className="p-3 bg-white rounded-md shadow-md">
 				Recipe space allows you to conveniently search through refined recipes
 				on the Internet and shows you ones that{" "}
 				<span className="font-bold">use ingredients you already have!</span>
@@ -63,7 +63,7 @@ const IngredientsForm: React.FC = () => {
 					width={25}
 				/>
 			</div>
-			<div className="container grow-0 shrink-0 min-w-max p-5 bg-white rounded-md shadow-md">
+			<div className="container grow-0 shrink-0 min-w-max py-5 bg-white rounded-md shadow-md px-10 md:px-5">
 				<div className="flex items-center pb-4">
 					<div className="text-lg font-semibold mr-2">
 						Search by ingredients
@@ -126,23 +126,6 @@ const IngredientsForm: React.FC = () => {
 					</button>
 				</form>
 			</div>
-			<style jsx>{`
-				.container {
-					width: 22rem;
-				}
-
-				@media (min-width: 380px) {
-					.container {
-						width: 25rem;
-					}
-				}
-
-				@media (min-width: 2570px) {
-					.container {
-						width: 28rem;
-					}
-				}
-			`}</style>
 		</div>
 	);
 };

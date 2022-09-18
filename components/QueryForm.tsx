@@ -71,7 +71,7 @@ const QueryForm: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-3">
+		<div className="flex flex-col gap-3 md:w-96 shrink-0">
 			<div className="container p-3 bg-white rounded-md shadow-md">
 				Have a dish you want to make but don&apos;t know how to make it? Recipe
 				Space will give you a{" "}
@@ -91,7 +91,7 @@ const QueryForm: React.FC = () => {
 					width={25}
 				/>
 			</div>
-			<div className="container grow-0 shrink-0 min-w-max p-5 bg-white rounded-md shadow-md">
+			<div className="grow-0 shrink-0 min-w-max py-5 bg-white rounded-md shadow-md px-10 md:px-5">
 				<div className="flex items-center pb-4 ">
 					<div className="text-lg font-semibold mr-2">Search by name</div>
 					<Image src="/icons/search.png" alt="search" height={25} width={25} />
@@ -141,23 +141,6 @@ const QueryForm: React.FC = () => {
 					</button>
 				</form>
 			</div>
-			<style jsx>{`
-				.container {
-					width: 22rem;
-				}
-
-				@media (min-width: 380px) {
-					.container {
-						width: 25rem;
-					}
-				}
-
-				@media (min-width: 2570px) {
-					.container {
-						width: 28rem;
-					}
-				}
-			`}</style>
 		</div>
 	);
 };
