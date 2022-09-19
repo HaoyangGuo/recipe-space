@@ -12,7 +12,7 @@ Next.js (API Routes), React.js, React-Query, Jotai, React-Hook-Form, TailwindCSS
 Recipe Space allows you to search by either ingredients present in those recipes or by common names any recipes.
 
 ![Community](./public/image/feed-screenshot.png)
-It's also a platform to showcase your delicious outcome!
+It's also a platform to showcase delicious dishes your made with our recipe!
 
 ![Recipe](./public/image/recipes-screenshot.png)
 Powered by [Spoonacular's API](https://spoonacular.com/food-api/),
