@@ -1,35 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Recipe Space
+Recipe Space is a fully responsive web application that allows you to search for recipes based on your list of ingredients. It is also an online community where people can share what they made with our recipes.
 
-## Getting Started
+## Live Demo
+Access my site at: [recipe-space.vercel.app](recipe-space.vercel.app)
 
-First, run the development server:
+## Technologies
+Next.js (API Routes), React.js, React-Query, Jotai, React-Hook-Form, TailwindCSS. 
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Screen Shots
+![Seearch](./public/image/search-screenshot.png)
+Recipe Space allows you to search by either ingredients present in those recipes or by common names any recipes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Community](./public/image/feed-screenshot.png)
+It's also a platform to showcase your delicious outcome!
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+![Recipe](./public/image/recipes-screenshot.png)
+Powered by [Spoonacular's API](https://spoonacular.com/food-api/),
+our recipes are carefully selected from all cuisines.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# recipe-space

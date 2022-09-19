@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 						src="/image/feed-screenshot.png"
 						alt="feed"
 						width={1000}
-						height={550}
+						height={625}
 						layout="responsive"
 					/>
 				</div>
