@@ -5,7 +5,7 @@ Recipe Space is a fully responsive web application that allows you to search for
 [recipe-space.vercel.app](recipe-space.vercel.app)
 
 ## Technologies
-Next.js (API Routes), React.js, Prisma, React-Query, Jotai, React-Hook-Form, TailwindCSS. 
+Next.js (w/ API Routes), React.js, Prisma, React-Query, Jotai, React-Hook-Form, TailwindCSS. 
 
 ## Screen Shots
 ![Seearch](./public/image/search-screenshot.png)
