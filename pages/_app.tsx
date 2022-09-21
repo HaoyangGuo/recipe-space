@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 				<QueryClientProvider client={new QueryClient()}>
 					<Head>
 						<link rel="recipe space icon" href="/image/favicon.ico" />
+						<title>Recipe Space</title>
 					</Head>
 					<Navbar />
 					<Layout>
