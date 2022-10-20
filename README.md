@@ -9,7 +9,7 @@ Next.js (w/ API Routes), React.js, Prisma, React-Query, Jotai, React-Hook-Form, 
 
 ## Screen Shots
 ![Seearch](./public/image/search-screenshot.png)
-Recipe Space allows you to search by either ingredients present in recipes or by common names of recipes.
+Recipe Space allows you to search by either ingredients in the recipes or by common names of the recipes.
 
 ![Community](./public/image/feed-screenshot.png)
 It's also a platform to showcase delicious dishes you've made with our recipe!
