@@ -76,7 +76,7 @@ const QueryForm: React.FC = () => {
 				Have a dish you want to make but don&apos;t know how to make it? Recipe
 				Space will give you a{" "}
 				<span className="font-bold">list of perfected recipes</span> so you can
-				use which ever one you like.
+				use whichever one you like.
 			</div>
 			<div className="container p-3 bg-blue-200">
 				<div className="inline">
