@@ -52,7 +52,7 @@ const IngredientsForm: React.FC = () => {
 				on the Internet and shows you ones that{" "}
 				<span className="font-bold">use ingredients you already have!</span>
 			</div>
-			<div className="container p-3 bg-green-200">
+			<div className="container p-3 bg-green-200 h-28">
 				<div className="inline">
 					If you have already decided what you&apos;re going to make, try search
 					for recipes by name instead{""}

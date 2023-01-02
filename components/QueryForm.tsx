@@ -78,7 +78,7 @@ const QueryForm: React.FC = () => {
 				<span className="font-bold">list of perfected recipes</span> so you can
 				use whichever one you like.
 			</div>
-			<div className="container p-3 bg-blue-200">
+			<div className="container p-3 bg-blue-200 h-28">
 				<div className="inline">
 					If you don&apos;t know what to make yet, try search for recipes by
 					ingredients instead{""}
