@@ -2,7 +2,7 @@
 Recipe Space is a fully responsive web application that allows you to search for recipes based on your list of ingredients. It is also an online community where people can share what they made using our recipes.
 
 ## Live Demo
-[recipe-space.vercel.app](recipe-space.vercel.app)
+[recipe-space.dhguo.dev](recipe-space.dhguo.dev)
 
 ## Technologies
 Next.js (w/ API Routes), React.js, Prisma, React-Query, Jotai, React-Hook-Form, TailwindCSS. 
