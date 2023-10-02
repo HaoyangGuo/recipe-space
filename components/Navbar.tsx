@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { Github } from "lucide-react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +23,10 @@ function Navbar() {
   return (
     <div className="w-screen bg-white flex justify-center sticky top-0 z-50">
       <a
-        className="absolute top-2 left-2 flex gap-1 p-0.5 md:py-1.5 md:px-2.5 hover:cursor-pointer text-base bg-black text-white rounded-full items-center hover:underline"
+        className="absolute top-2 left-2 flex gap-1 p-2 md:py-2 md:px-4 hover:cursor-pointer text-base bg-black text-white rounded-full items-center hover:underline"
         href="https://github.com/HaoyangGuo/recipe-space"
       >
-        <div className="h-6 w-6">
-          <img
-            src="/icons/github-mark-white.svg"
-            alt="github"
-            className="object-fill"
-          />
-        </div>
+        <Github className="h-6 w-6" />
         <span className="hidden md:block">Source Code</span>
       </a>
       <div className="flex flex-col items-center w-screen sm:w-2/3 justify-between p-2 lg:flex-row">
